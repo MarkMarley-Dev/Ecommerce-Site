@@ -29,7 +29,7 @@ class App extends Component {
 
   componentDidMount() {
     this.authListener = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
+      if (!userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot((snapshot) => {
           this.setState({
@@ -67,11 +67,15 @@ class App extends Component {
           <Route
             exact
             path="/registration"
-            render={() => (
-              <MainLayout currentUser={currentUser}>
-                <Registration />
-              </MainLayout>
-            )}
+            render={() =>
+              currentUser ? (
+                <Redirect to="/" />
+              ) : (
+                <MainLayout currentUser={currentUser}>
+                  <Registration />
+                </MainLayout>
+              )
+            }
           />
           <Route
             exact
