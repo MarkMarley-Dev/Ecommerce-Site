@@ -1,10 +1,11 @@
 import { Component } from "react/cjs/react.production.min";
 import "./styles.scss";
-
+import { Link } from "react-router-dom";
 import { signInWithGoogle, auth } from "../../firebase/utils";
 
 import FormInput from "../form/FormInput/Input";
 import Button from "../form/Button";
+import AuthWrapper from "../AuthWrapper";
 
 const initialState = {
   email: "",
@@ -39,38 +40,37 @@ class SignIn extends Component {
   }
   render() {
     const { email, password } = this.state;
+    const configAuthWrapper = {
+      headline: "Login",
+    };
     return (
-      <div className="signin">
-        <div className="wrap">
-          <h2>Login</h2>
-          <div className="formWrap">
-            <form onSubmit={this.handleSubmit}>
-              <FormInput
-                type="email"
-                name="email"
-                value={email}
-                placeholder="Email"
-                handleChange={this.handleChange}
-              />
-              <FormInput
-                type="password"
-                name="password"
-                value={password}
-                placeholder="Password"
-                handleChange={this.handleChange}
-              />
-              <Button type="submit">Login</Button>
-              <div className="socialSignin">
-                <div className="row">
-                  <Button onClick={signInWithGoogle}>
-                    Sign in with google
-                  </Button>
-                </div>
-              </div>
-            </form>
+      <AuthWrapper {...configAuthWrapper}>
+        <form onSubmit={this.handleSubmit}>
+          <FormInput
+            type="email"
+            name="email"
+            value={email}
+            placeholder="Email"
+            handleChange={this.handleChange}
+          />
+          <FormInput
+            type="password"
+            name="password"
+            value={password}
+            placeholder="Password"
+            handleChange={this.handleChange}
+          />
+          <Button type="submit">Login</Button>
+          <div className="socialSignin">
+            <div className="row">
+              <Button onClick={signInWithGoogle}>Sign in with google</Button>
+            </div>
           </div>
-        </div>
-      </div>
+          <div className="links">
+            <Link to="/recovery">Reset Password</Link>
+          </div>
+        </form>
+      </AuthWrapper>
     );
   }
 }
