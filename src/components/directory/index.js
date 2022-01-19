@@ -13,7 +13,7 @@ const Directory = (props) => {
             backgroundImage: `url(${DietImg})`,
           }}
         >
-          <a>Shop Diet Supplements</a>
+          <a href="/">Shop Diet Supplements</a>
         </div>
         <div
           className="item"
@@ -21,7 +21,7 @@ const Directory = (props) => {
             backgroundImage: `url(${VitaminImg})`,
           }}
         >
-          <a>Shop Vitamin Supplments</a>
+          <a href="/">Shop Vitamin Supplments</a>
         </div>
       </div>
     </div>
