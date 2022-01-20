@@ -1,19 +1,40 @@
-import { useState } from "react";
-import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
+import { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { signUpUser, resetAllAuthForms } from "../../redux/user.actions";
 import "./styles.scss";
-import { auth, handleUserProfile } from "../../firebase/utils";
 import AuthWrapper from "../AuthWrapper";
 
 import FormInput from "../form/FormInput/Input";
 import Button from "../form/Button";
-import { setCurrentUser } from "../../redux/user.actions";
+
+const mapState = ({ user }) => ({
+  signUpSucess: user.signUpSucess,
+  signUpError: user.signUpError,
+});
 
 const Signup = (props) => {
+  const { signUpSucess, signUpError } = useSelector(mapState);
+  const dispatch = useDispatch();
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    if (signUpSucess) {
+      reset();
+      dispatch(resetAllAuthForms);
+      props.history.push("/");
+    }
+  }, [signUpSucess]);
+
+  useEffect(() => {
+    if (Array.isArray(signUpError) && signUpError.length > 0) {
+      setErrors(signUpError);
+    }
+  }, [signUpError]);
 
   const reset = () => {
     setDisplayName("");
@@ -25,22 +46,14 @@ const Signup = (props) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    if (password !== confirmPassword) {
-      const err = [`Passwords Don't match`];
-      setErrors(err);
-      return;
-    }
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
+    dispatch(
+      signUpUser({
+        displayName,
         email,
-        password
-      );
-
-      await handleUserProfile(user, { displayName });
-      reset();
-      props.history.push("/");
-    } catch (error) {}
+        password,
+        confirmPassword,
+      })
+    );
   };
 
   const configAuthWrapper = {
