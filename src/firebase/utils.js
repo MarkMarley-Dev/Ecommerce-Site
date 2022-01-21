@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import { firebaseConfig } from "./config";
+import { useAuth } from "../customHooks";
 
 firebase.initializeApp(firebaseConfig);
 
@@ -11,7 +12,7 @@ export const firestore = firebase.firestore();
 export const GoogleProvider = new firebase.auth.GoogleAuthProvider();
 GoogleProvider.setCustomParameters({ prompt: "select_account" });
 
-export const handleUserProfile = async (userAuth, additionalData) => {
+export const handleUserProfile = async ({ userAuth, additionalData }) => {
   if (!userAuth) return;
   const { uid } = userAuth;
 
@@ -30,8 +31,17 @@ export const handleUserProfile = async (userAuth, additionalData) => {
         ...additionalData,
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
   return userRef;
+};
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
 };
