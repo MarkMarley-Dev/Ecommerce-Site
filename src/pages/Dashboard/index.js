@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { getUserOrderHistory } from "./../../redux/Orders/orders.actions";
-import OrderHistory from "./../../components/OrderHistory";
+import { getUserOrderHistory } from "../../redux/Orders/orders.sagas";
+import OrderHistory from "../../components/OrderHistory";
 import "./styles.scss";
 
 const mapState = ({ user, ordersData }) => ({
@@ -13,9 +13,9 @@ const Dashboard = (props) => {
   const dispatch = useDispatch();
   const { currentUser, orderHistory } = useSelector(mapState);
 
-  // useEffect(() => {
-  //   dispatch(getUserOrderHistory(currentUser.id));
-  // }, []);
+  useEffect(() => {
+    dispatch(getUserOrderHistory(currentUser.id));
+  }, []);
 
   return (
     <div>

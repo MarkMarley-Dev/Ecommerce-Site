@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signOutUserStart } from "../redux/User/user.actions";
 
-import Header from "../components/Header";
-import VerticalNav from "../components/VerticalNav";
+import Header from "../components/Header/index";
+import VerticalNav from "../components/VerticalNav/index";
 import Footer from "../components/Footer/Footer";
 
 const DashBoardLayout = (props) => {

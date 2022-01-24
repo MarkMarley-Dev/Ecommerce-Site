@@ -1,17 +1,20 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./styles.scss";
 import { Link, useHistory } from "react-router-dom";
 import {
   emailSignInStart,
   googleSignInStart,
 } from "../../redux/User/user.actions";
 
+import "./styles.scss";
+
+import AuthWrapper from "../AuthWrapper";
 import FormInput from "../forms/FormInput/Input";
 import Button from "../forms/Button";
-import AuthWrapper from "../AuthWrapper";
 
-const mapState = ({ user }) => ({ currentUser: user.currentUser });
+const mapState = ({ user }) => ({
+  currentUser: user.currentUser,
+});
 
 const SignIn = (props) => {
   const dispatch = useDispatch();
@@ -22,13 +25,12 @@ const SignIn = (props) => {
 
   useEffect(() => {
     if (currentUser) {
-      reset();
-
+      resetForm();
       history.push("/");
     }
   }, [currentUser]);
 
-  const reset = () => {
+  const resetForm = () => {
     setEmail("");
     setPassword("");
   };
@@ -48,31 +50,39 @@ const SignIn = (props) => {
 
   return (
     <AuthWrapper {...configAuthWrapper}>
-      <form onSubmit={handleSubmit}>
-        <FormInput
-          type="email"
-          name="email"
-          value={email}
-          placeholder="Email"
-          handleChange={(e) => setEmail(e.target.value)}
-        />
-        <FormInput
-          type="password"
-          name="password"
-          value={password}
-          placeholder="Password"
-          handleChange={(e) => setPassword(e.target.value)}
-        />
-        <Button type="submit">Login</Button>
-        <div className="socialSignin">
-          <div className="row">
-            <Button onClick={handleGoogleSignIn}>Sign in with google</Button>
+      <div className="formWrap">
+        <form onSubmit={handleSubmit}>
+          <FormInput
+            type="email"
+            name="email"
+            value={email}
+            placeholder="Email"
+            handleChange={(e) => setEmail(e.target.value)}
+          />
+
+          <FormInput
+            type="password"
+            name="password"
+            value={password}
+            placeholder="Password"
+            handleChange={(e) => setPassword(e.target.value)}
+          />
+
+          <Button type="submit">LogIn</Button>
+
+          <div className="socialSignin">
+            <div className="row">
+              <Button onClick={handleGoogleSignIn}>Sign in with Google</Button>
+            </div>
           </div>
-        </div>
-        <div className="links">
-          <Link to="/recovery">Reset Password</Link>
-        </div>
-      </form>
+
+          <div className="links">
+            <Link to="/registration">Register</Link>
+            {` | `}
+            <Link to="/recovery">Reset Password</Link>
+          </div>
+        </form>
+      </div>
     </AuthWrapper>
   );
 };

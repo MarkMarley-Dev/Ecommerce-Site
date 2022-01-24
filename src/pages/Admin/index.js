@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import {
-//   addProductStart,
-//   fetchProductsStart,
-//   deleteProductStart,
-// } from "../../../redux/Products/products.actions";
-import Modal from "./../../components/Modal";
+import {
+  addProductStart,
+  fetchProductsStart,
+  deleteProductStart,
+} from "../../redux/Products/products.actions";
+import Modal from "../../components/Modal";
 import FormInput from "../../components/forms/FormInput/Input";
 import FormSelect from "../../components/forms/FormSelect";
 import Button from "../../components/forms/Button";
-import LoadMore from "./../../components/LoadMore";
+import LoadMore from "../../components/LoadMore";
 // import CKEditor from "ckeditor4-react";
 import "./styles.scss";
 
@@ -29,9 +29,9 @@ const Admin = (props) => {
 
   const { data, queryDoc, isLastPage } = products;
 
-  //   useEffect(() => {
-  //     dispatch(fetchProductsStart());
-  //   }, []);
+  useEffect(() => {
+    dispatch(fetchProductsStart());
+  }, []);
 
   const toggleModal = () => setHideModal(!hideModal);
 
@@ -52,25 +52,25 @@ const Admin = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // dispatch(
-    //   addProductStart({
-    //     productCategory,
-    //     productName,
-    //     productThumbnail,
-    //     productPrice,
-    //     productDesc,
-    //   })
-    // );
+    dispatch(
+      addProductStart({
+        productCategory,
+        productName,
+        productThumbnail,
+        productPrice,
+        productDesc,
+      })
+    );
     resetForm();
   };
 
   const handleLoadMore = () => {
-    // dispatch(
-    //   fetchProductsStart({
-    //     startAfterDoc: queryDoc,
-    //     persistProducts: data,
-    //   })
-    // );
+    dispatch(
+      fetchProductsStart({
+        startAfterDoc: queryDoc,
+        persistProducts: data,
+      })
+    );
   };
 
   const configLoadMore = {

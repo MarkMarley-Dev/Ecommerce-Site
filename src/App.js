@@ -1,30 +1,34 @@
-import "./default.scss";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Switch, Route } from "react-router-dom";
 import { checkUserSession } from "./redux/User/user.actions";
-import { Route, Switch, Redirect } from "react-router-dom";
-import Admin from "./pages/Admin";
 
 // components
+// import AdminToolbar from "./components/AdminToolbar";
 
-import AdminToolbar from "./components/EmailPassword/AdminToolbar";
-
-//hoc
+// hoc
 import WithAuth from "./hoc/withAuth";
-import WithAdminAuth from "./hoc/withAdminAuth";
+// import WithAdminAuth from "./hoc/withAdminAuth";
 
-// Pages
+// layouts
+import MainLayout from "./layouts/MainLayout";
+import HomepageLayout from "./layouts/HomepageLayout";
+import AdminLayout from "./layouts/AdminLayout";
+import DashboardLayout from "./layouts/DashboardLayout";
+
+// pages
 import Homepage from "./pages/Homepage";
+// import Search from "./pages/Search";
 import Registration from "./pages/Registration";
 import Login from "./pages/Login";
 import Recovery from "./pages/Recovery";
 import Dashboard from "./pages/Dashboard";
-
-// Layouts
-import AdminLayout from "./layouts/AdminLayout";
-import DashBoardLayout from "./layouts/DashboardLayout";
-import MainLayout from "./layouts/MainLayout";
-import HomepageLayout from "./layouts/HomepageLayout";
+import Admin from "./pages/Admin";
+// import ProductDetails from "./pages/ProductDetails";
+// import Cart from "./pages/Cart";
+import Payment from "./pages/Payment";
+// import Order from "./pages/Order";
+import "./default.scss";
 
 const App = (props) => {
   const dispatch = useDispatch();
@@ -34,9 +38,10 @@ const App = (props) => {
   }, []);
 
   return (
-    <div className="app">
-      <AdminToolbar />
+    <div className="App">
+      {/* <AdminToolbar /> */}
       <Switch>
+        {/*
         <Route
           exact
           path="/"
@@ -45,9 +50,51 @@ const App = (props) => {
               <Homepage />
             </HomepageLayout>
           )}
+        /> */}
+        {/* <Route
+          exact
+          path="/search"
+          render={() => (
+            <MainLayout>
+              <Search />
+            </MainLayout>
+          )}
+        /> */}
+        {/* <Route
+          path="/search/:filterType"
+          render={() => (
+            <MainLayout>
+              <Search />
+            </MainLayout>
+          )}
+        /> */}
+        {/* <Route
+          path="/product/:productID"
+          render={() => (
+            <MainLayout>
+              <ProductDetails />
+            </MainLayout>
+          )}
+        /> */}
+        {/* <Route
+          path="/cart"
+          render={() => (
+            <MainLayout>
+              <Cart />
+            </MainLayout>
+          )}
+        /> */}
+        <Route
+          path="/payment"
+          render={() => (
+            <WithAuth>
+              <MainLayout>
+                <Payment />
+              </MainLayout>
+            </WithAuth>
+          )}
         />
         <Route
-          exact
           path="/registration"
           render={() => (
             <MainLayout>
@@ -56,7 +103,6 @@ const App = (props) => {
           )}
         />
         <Route
-          exact
           path="/login"
           render={() => (
             <MainLayout>
@@ -76,22 +122,32 @@ const App = (props) => {
           path="/dashboard"
           render={() => (
             <WithAuth>
-              <MainLayout>
+              <DashboardLayout>
                 <Dashboard />
-              </MainLayout>
+              </DashboardLayout>
             </WithAuth>
           )}
         />
-        <Route
+        {/* <Route
+          path="/order/:orderID"
+          render={() => (
+            <WithAuth>
+              <DashboardLayout>
+                <Order />
+              </DashboardLayout>
+            </WithAuth>
+          )}
+        /> */}
+        {/* <Route
           path="/admin"
           render={() => (
             <WithAdminAuth>
-              <MainLayout>
+              <AdminLayout>
                 <Admin />
-              </MainLayout>
+              </AdminLayout>
             </WithAdminAuth>
           )}
-        />
+        /> */}
       </Switch>
     </div>
   );

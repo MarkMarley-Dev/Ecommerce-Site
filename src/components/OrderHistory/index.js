@@ -1,96 +1,97 @@
-// import React from "react";
-// // import {
-// //   TableContainer,
-// //   Table,
-// //   TableHead,
-// //   TableRow,
-// //   TableBody,
-// //   TableCell,
-// // } from "@material-ui/core";
-// import moment from "moment";
-// import { useHistory } from "react-router-dom";
+import React from "react";
 
-// const columns = [
-//   {
-//     id: "orderCreatedDate",
-//     lable: "Order Date",
-//   },
-//   {
-//     id: "documentID",
-//     lable: "Order ID",
-//   },
-//   {
-//     id: "orderTotal",
-//     lable: "Amount",
-//   },
-// ];
+import {
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+} from "@mui/material";
+import moment from "moment";
+import { useHistory } from "react-router-dom";
 
-// const styles = {
-//   fontSize: "16px",
-//   cursor: "pointer",
-//   width: "10%",
-// };
+const columns = [
+  {
+    id: "orderCreatedDate",
+    lable: "Order Date",
+  },
+  {
+    id: "documentID",
+    lable: "Order ID",
+  },
+  {
+    id: "orderTotal",
+    lable: "Amount",
+  },
+];
 
-// const formatText = (columnName, columnValue) => {
-//   switch (columnName) {
-//     case "orderTotal":
-//       return `£${columnValue}`;
-//     case "orderCreatedDate":
-//       return moment(columnValue.nano).format("DD/MM/YYYY");
-//     default:
-//       return columnValue;
-//   }
-// };
+const styles = {
+  fontSize: "16px",
+  cursor: "pointer",
+  width: "10%",
+};
 
-// const OrderHistory = ({ orders }) => {
-//   const history = useHistory();
+const formatText = (columnName, columnValue) => {
+  switch (columnName) {
+    case "orderTotal":
+      return `£${columnValue}`;
+    case "orderCreatedDate":
+      return moment(columnValue.nano).format("DD/MM/YYYY");
+    default:
+      return columnValue;
+  }
+};
 
-//   return (
-//     <TableContainer>
-//       <Table>
-//         <TableHead>
-//           <TableRow>
-//             {columns.map((column, pos) => {
-//               const { lable } = column;
+const OrderHistory = ({ orders }) => {
+  const history = useHistory();
 
-//               return (
-//                 <TableCell key={pos} style={styles}>
-//                   {lable}
-//                 </TableCell>
-//               );
-//             })}
-//           </TableRow>
-//         </TableHead>
+  return (
+    <TableContainer>
+      <Table>
+        <TableHead>
+          <TableRow>
+            {columns.map((column, pos) => {
+              const { lable } = column;
 
-//         <TableBody>
-//           {Array.isArray(orders) &&
-//             orders.length > 0 &&
-//             orders.map((row, pos) => {
-//               const { documentID } = row;
+              return (
+                <TableCell key={pos} style={styles}>
+                  {lable}
+                </TableCell>
+              );
+            })}
+          </TableRow>
+        </TableHead>
 
-//               return (
-//                 <TableRow
-//                   key={pos}
-//                   onClick={() => history.push(`/order/${documentID}`)}
-//                 >
-//                   {columns.map((column, pos) => {
-//                     const columnName = column.id;
-//                     const columnValue = row[columnName];
-//                     const formattedText = formatText(columnName, columnValue);
+        <TableBody>
+          {Array.isArray(orders) &&
+            orders.length > 0 &&
+            orders.map((row, pos) => {
+              const { documentID } = row;
 
-//                     return (
-//                       <TableCell key={pos} style={styles}>
-//                         {formattedText}
-//                       </TableCell>
-//                     );
-//                   })}
-//                 </TableRow>
-//               );
-//             })}
-//         </TableBody>
-//       </Table>
-//     </TableContainer>
-//   );
-// };
+              return (
+                <TableRow
+                  key={pos}
+                  onClick={() => history.push(`/order/${documentID}`)}
+                >
+                  {columns.map((column, pos) => {
+                    const columnName = column.id;
+                    const columnValue = row[columnName];
+                    const formattedText = formatText(columnName, columnValue);
 
-// export default OrderHistory;
+                    return (
+                      <TableCell key={pos} style={styles}>
+                        {formattedText}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+};
+
+export default OrderHistory;
