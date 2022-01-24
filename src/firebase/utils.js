@@ -2,7 +2,6 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import { firebaseConfig } from "./config";
-import { useAuth } from "../customHooks";
 
 firebase.initializeApp(firebaseConfig);
 
@@ -22,18 +21,21 @@ export const handleUserProfile = async ({ userAuth, additionalData }) => {
   if (!snapshot.exists) {
     const { displayName, email } = userAuth;
     const timestamp = new Date();
+    const userRoles = ["user"];
 
     try {
       await userRef.set({
         displayName,
         email,
-        createDate: timestamp,
+        createdDate: timestamp,
+        userRoles,
         ...additionalData,
       });
-    } catch (error) {
-      // console.log(error);
+    } catch (err) {
+      // console.log(err);
     }
   }
+
   return userRef;
 };
 

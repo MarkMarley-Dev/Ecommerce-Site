@@ -7,8 +7,8 @@ import {
   resetUserState,
 } from "../../redux/User/user.actions";
 import AuthWrapper from "../AuthWrapper";
-import FormInput from "../form/FormInput/Input";
-import Button from "../form/Button";
+import FormInput from "../forms/FormInput/Input";
+import Button from "../forms/Button";
 
 const mapState = ({ user }) => ({
   resetPasswordSuccess: user.resetPasswordSuccess,
