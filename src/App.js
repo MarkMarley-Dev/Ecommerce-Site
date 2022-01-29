@@ -25,8 +25,8 @@ import Recovery from "./pages/Recovery";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
 // import ProductDetails from "./pages/ProductDetails";
-// import Cart from "./pages/Cart";
-import Payment from "./pages/Payment";
+import Cart from "./pages/Cart";
+// import Payment from "./pages/Payment";
 // import Order from "./pages/Order";
 import "./default.scss";
 
@@ -41,7 +41,6 @@ const App = (props) => {
     <div className="App">
       {/* <AdminToolbar /> */}
       <Switch>
-        {/*
         <Route
           exact
           path="/"
@@ -50,7 +49,7 @@ const App = (props) => {
               <Homepage />
             </HomepageLayout>
           )}
-        /> */}
+        />
         {/* <Route
           exact
           path="/search"
@@ -76,15 +75,15 @@ const App = (props) => {
             </MainLayout>
           )}
         /> */}
-        {/* <Route
+        <Route
           path="/cart"
           render={() => (
             <MainLayout>
               <Cart />
             </MainLayout>
           )}
-        /> */}
-        <Route
+        />
+        {/* <Route
           path="/payment"
           render={() => (
             <WithAuth>
@@ -93,7 +92,7 @@ const App = (props) => {
               </MainLayout>
             </WithAuth>
           )}
-        />
+        /> */}
         <Route
           path="/registration"
           render={() => (
